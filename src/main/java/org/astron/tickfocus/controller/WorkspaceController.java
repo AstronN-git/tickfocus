@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/home")
-public class HomeController {
+public class WorkspaceController {
     @GetMapping
     public String showHomeView() {
         return "home";
