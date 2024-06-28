@@ -14,9 +14,9 @@ public class WorkspaceControllerTests {
     MockMvc mockMvc;
 
     @Test
-    void testReturnsHomeView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/home"))
+    void testReturnsWorkspaceView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/workspace"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("home"));
+                .andExpect(MockMvcResultMatchers.view().name("workspace"));
     }
 }
