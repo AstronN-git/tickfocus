@@ -1,5 +1,5 @@
 .work-area {
-  padding: 60px 25% 0;
+  padding: 60px 25%;
   height: 100vh;
 }
 
@@ -12,6 +12,10 @@
   margin-top: 100px;
 }
 
+.progress-text {
+  color: #1A1B21;
+}
+
 .progress-bar {
   margin-top: 8px;
   height: 18px;
@@ -21,6 +25,51 @@
 .time-left {
   margin-top: 8px;
   text-align: right;
+  color: #1A1B21;
+}
+
+.buttons-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttons-container button {
+  height: 60px;
+  padding: 10px 24px;
+  width: fit-content;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  background-color: #DAE2FF;
+  color: #001946;
+}
+.buttons-container button svg {
+  width: 12px;
+  height: 12px;
+  margin: auto 0;
+}
+.buttons-container button span {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 12px;
+}
+@media (hover: hover) {
+  .buttons-container button:hover {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+    background-color: #CDD2E9;
+  }
+}
+.buttons-container button:active {
+  background-color: #C5CAE0;
+  box-shadow: none;
+}
+.buttons-container button:disabled {
+  background-color: #EEEDF4;
+  color: rgba(68, 70, 79, 0.3764705882);
+}
+.buttons-container button:disabled:hover {
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=workspace.css.map */
