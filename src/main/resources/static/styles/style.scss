@@ -1,6 +1,37 @@
 @import 'colors';
+@import 'fonts';
+@import 'reset';
+
+html {
+  height: 100%;
+}
 
 body {
+  height: 100%;
   color: $on-background;
   background: $background;
+}
+
+.headline-large {
+  font: $headline-large;
+}
+
+.headline-medium {
+  font: $headline-medium;
+}
+
+.headline-small {
+  font: $headline-small;
+}
+
+.body-large {
+  font: $body-large;
+}
+
+.body-medium {
+  font: $body-medium;
+}
+
+.body-small {
+  font: $body-small;
 }

@@ -8,8 +8,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{styles/style.css}">
+    <link rel="stylesheet" th:href="@{styles/workspace.css}">
+
 </head>
 <body>
-    Hello, world!
+    <div class="work-area">
+        <div class="tasks">
+
+        </div>
+
+        <div class="progress">
+            <div class="progress-text headline-medium">
+                Working...
+            </div>
+            <div class="progress-bar" id="slice-progress"></div>
+            <div class="time-left body-large">
+                25min 12s left
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,26 @@
+@import "colors";
+
+.work-area {
+  padding: 60px 25% 0;
+  height: 100vh;
+}
+
+.tasks {
+  height: 385px;
+  width: 100%;
+}
+
+.progress {
+  margin-top: 100px;
+}
+
+.progress-bar {
+  margin-top: 8px;
+  height: 18px;
+  background-color: $primary-container;
+}
+
+.time-left {
+  margin-top: 8px;
+  text-align: right;
+}
