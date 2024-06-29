@@ -1,11 +1,14 @@
 package org.astron.tickfocus;
 
 import org.astron.tickfocus.controller.WorkspaceController;
+import org.astron.tickfocus.dto.TimerState;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,7 +28,30 @@ public class WorkspaceControllerTests {
     void testModelContainsIsTimerStartedAttribute() throws Exception {
         mockMvc.perform(get("/workspace"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("isTimerStarted"))
-                .andExpect(model().attribute("isTimerStarted", false));
+                .andExpect(model().attributeExists("timerState"))
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("isTimerStarted", is(false))));
+    }
+
+    @Test
+    void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
+        mockMvc.perform(get("/workspace/startTimer"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/workspace"))
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("isTimerStarted", is(true))));
+    }
+
+    @Test
+    void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
+        TimerState timerState = new TimerState();
+        timerState.setIsTimerStarted(true);
+
+        mockMvc.perform(get("/workspace/endTimer")
+                .sessionAttr("timerState", timerState))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/workspace"))
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("isTimerStarted", is(false))));
     }
 }
