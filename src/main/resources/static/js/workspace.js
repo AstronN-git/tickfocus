@@ -43,19 +43,13 @@ function updateProgress(progress) {
     sliceTrack.style.width = (1 - progress) * 100 + '%'
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
+setInterval(() => {
+    if (!isTimerStarted)
+        return
 
-async function run() {
-    for (let i = 0; i <= 10000; i++) {
-        updateProgress(i / 10000)
-        await sleep(10);
-    }
-}
+    let date = Date.now()
+    let diff = date - timerStartDate
 
-updateProgress(0)
-
-if (isTimerStarted) {
-    run()
-}
+    let percentage = diff / fullTimerDuration
+    updateProgress(percentage)
+}, 100)

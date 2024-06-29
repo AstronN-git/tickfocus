@@ -26,7 +26,7 @@ public class WorkspaceControllerTests {
     }
 
     @Test
-    void testModelContainsIsTimerStartedAttributeAndStartDateIsNull() throws Exception {
+    void testModelContainsNeededAttributes() throws Exception {
         mockMvc.perform(get("/workspace"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("timerState"))
@@ -37,7 +37,7 @@ public class WorkspaceControllerTests {
     }
 
     @Test
-    void testTimerIsStartedAndStartDateIsSetWhenVisitingTimerStart() throws Exception {
+    void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
         Date date = new Date();
 
         mockMvc.perform(get("/workspace/startTimer"))
@@ -53,7 +53,7 @@ public class WorkspaceControllerTests {
     }
 
     @Test
-    void testTimerIsStoppedAndStartDateIsNullWhenVisitingTimerStop() throws Exception {
+    void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
         TimerState timerState = new TimerState();
         timerState.setIsTimerStarted(true);
         timerState.setStartDate(new Date());
