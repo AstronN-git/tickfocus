@@ -1,4 +1,4 @@
-package org.astron.tickfocus.dto;
+package org.astron.tickfocus.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

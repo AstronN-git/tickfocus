@@ -1,6 +1,6 @@
 package org.astron.tickfocus.controller;
 
-import org.astron.tickfocus.dto.TimerState;
+import org.astron.tickfocus.model.TimerState;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -1,7 +1,7 @@
 package org.astron.tickfocus;
 
 import org.astron.tickfocus.controller.WorkspaceController;
-import org.astron.tickfocus.dto.TimerState;
+import org.astron.tickfocus.model.TimerState;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
