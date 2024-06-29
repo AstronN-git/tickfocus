@@ -1,5 +1,6 @@
 package org.astron.tickfocus.controller;
 
+import org.astron.tickfocus.configuration.TimerProperties;
 import org.astron.tickfocus.model.TimerState;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,12 @@ import java.util.Date;
 @RequestMapping("/workspace")
 @SessionAttributes("timerState")
 public class WorkspaceController {
+    private TimerProperties timerProperties;
+
+    public WorkspaceController(TimerProperties timerProperties) {
+        this.timerProperties = timerProperties;
+    }
+
     @GetMapping
     public String showHomeView() {
         return "workspace";
@@ -33,7 +40,12 @@ public class WorkspaceController {
     }
 
     @ModelAttribute("timerState")
-    private TimerState timerState() {
+    public TimerState timerState() {
         return new TimerState(false, null);
+    }
+
+    @ModelAttribute("timerProperties")
+    public TimerProperties timerProperties() {
+        return timerProperties;
     }
 }

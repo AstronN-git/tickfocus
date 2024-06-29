@@ -55,7 +55,7 @@
     <script th:inline="javascript">
         const isTimerStarted = [[${timerState.isTimerStarted}]]
         const timerStartDate = new Date([[${timerState.startDate}]])
-        const fullTimerDuration = 120000 // 1500000 = 25 minutes
+        const fullTimerDuration = [[${timerProperties.sessionTime}]]
     </script>
     <script th:src="@{js/workspace.js}"></script>
 </body>

@@ -4,11 +4,11 @@ const progressEpsHigh = .005;
 
 const sliceActive = document.getElementById("slice-active")
 const sliceTrack = document.getElementById("slice-track")
-const sliceTrackStop = document.getElementById("slice-track-stop")
 
 function updateProgress(progress) {
-    if (progress > 1) {
+    if (progress >= 1) {
         progress = 1;
+        document.forms["end-timer"].submit()
     }
 
     if (progress < 0) {
@@ -21,8 +21,6 @@ function updateProgress(progress) {
         sliceTrack.classList.add('track-and-stop-done')
 
         sliceActive.style.width = '100%'
-
-        // send request for stop session
 
         return
     }
