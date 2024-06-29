@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import java.util.Date;
+
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -53,5 +54,40 @@ public class WorkspaceControllerTests {
                 .andExpect(redirectedUrl("/workspace"))
                 .andExpect(request().sessionAttribute("timerState",
                         hasProperty("isTimerStarted", is(false))));
+    }
+
+    @Test
+    void testTimerStartDateSessionAttributeIsNull() throws Exception {
+        mockMvc.perform(get("/workspace"))
+                .andExpect(status().isOk())
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("startDate", nullValue())));
+    }
+
+    @Test
+    void testTimerStartDateIsPresentAfterTimerStart() throws Exception {
+        Date expectedAfter = new Date();
+        mockMvc.perform(get("/workspace/startTimer"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/workspace"))
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("startDate", allOf(
+                                notNullValue(),
+                                anyOf(greaterThan(expectedAfter), equalTo(expectedAfter))
+                        ))));
+    }
+
+    @Test
+    void testTimerStartDateIsNullAfterTimerStop() throws Exception {
+        TimerState timerState = new TimerState();
+        timerState.setIsTimerStarted(true);
+        timerState.setStartDate(new Date());
+
+        mockMvc.perform(get("/workspace/endTimer")
+                .sessionAttr("timerState", timerState))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/workspace"))
+                .andExpect(request().sessionAttribute("timerState",
+                        hasProperty("startDate", nullValue())));
     }
 }
