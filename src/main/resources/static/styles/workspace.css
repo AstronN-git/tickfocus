@@ -38,6 +38,7 @@
   height: 4px;
   background-color: #DAE2FF;
   border-radius: 2px;
+  width: 100%;
 }
 .progress-bar .track-and-stop .track-stop {
   height: 100%;
