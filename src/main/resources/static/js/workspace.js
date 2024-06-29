@@ -1,7 +1,6 @@
 let progress = 1
 
-const progressEpsLow = .005;
-const progressEpsHigh = .01;
+const progressEpsHigh = .005;
 
 const sliceActive = document.getElementById("slice-active")
 const sliceTrack = document.getElementById("slice-track")
@@ -16,7 +15,8 @@ function updateProgress(progress) {
         progress = 0;
     }
 
-    if (progress + progressEpsHigh > 1) {
+    if (progress + progressEpsHigh >= 1) {
+        sliceActive.classList.remove('active-indicator-none')
         sliceActive.classList.add('active-indicator-done')
         sliceTrack.classList.add('track-and-stop-done')
 
@@ -27,7 +27,7 @@ function updateProgress(progress) {
         return
     }
 
-    if (progress < progressEpsLow) {
+    if (progress <= 0) {
         sliceActive.classList.remove('active-indicator')
         sliceActive.classList.add('active-indicator-none')
 
