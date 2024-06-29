@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(WorkspaceController.class)
 public class WorkspaceControllerTests {
@@ -15,8 +16,16 @@ public class WorkspaceControllerTests {
 
     @Test
     void testReturnsWorkspaceView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/workspace"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("workspace"));
+        mockMvc.perform(get("/workspace"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("workspace"));
+    }
+
+    @Test
+    void testModelContainsIsTimerStartedAttribute() throws Exception {
+        mockMvc.perform(get("/workspace"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("isTimerStarted"))
+                .andExpect(model().attribute("isTimerStarted", false));
     }
 }
