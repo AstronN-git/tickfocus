@@ -26,59 +26,34 @@ public class WorkspaceControllerTests {
     }
 
     @Test
-    void testModelContainsIsTimerStartedAttribute() throws Exception {
+    void testModelContainsIsTimerStartedAttributeAndStartDateIsNull() throws Exception {
         mockMvc.perform(get("/workspace"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("timerState"))
-                .andExpect(request().sessionAttribute("timerState",
-                        hasProperty("isTimerStarted", is(false))));
+                .andExpect(request().sessionAttribute("timerState", allOf(
+                        hasProperty("isTimerStarted", is(false)),
+                        hasProperty("startDate", nullValue())
+                )));
     }
 
     @Test
-    void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
+    void testTimerIsStartedAndStartDateIsSetWhenVisitingTimerStart() throws Exception {
+        Date date = new Date();
+
         mockMvc.perform(get("/workspace/startTimer"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState",
-                        hasProperty("isTimerStarted", is(true))));
-    }
-
-    @Test
-    void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
-        TimerState timerState = new TimerState();
-        timerState.setIsTimerStarted(true);
-
-        mockMvc.perform(get("/workspace/endTimer")
-                .sessionAttr("timerState", timerState))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState",
-                        hasProperty("isTimerStarted", is(false))));
-    }
-
-    @Test
-    void testTimerStartDateSessionAttributeIsNull() throws Exception {
-        mockMvc.perform(get("/workspace"))
-                .andExpect(status().isOk())
-                .andExpect(request().sessionAttribute("timerState",
-                        hasProperty("startDate", nullValue())));
-    }
-
-    @Test
-    void testTimerStartDateIsPresentAfterTimerStart() throws Exception {
-        Date expectedAfter = new Date();
-        mockMvc.perform(get("/workspace/startTimer"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState",
+                .andExpect(request().sessionAttribute("timerState", allOf(
+                        hasProperty("isTimerStarted", is(true)),
                         hasProperty("startDate", allOf(
                                 notNullValue(),
-                                anyOf(greaterThan(expectedAfter), equalTo(expectedAfter))
-                        ))));
+                                greaterThanOrEqualTo(date)
+                        ))
+                )));
     }
 
     @Test
-    void testTimerStartDateIsNullAfterTimerStop() throws Exception {
+    void testTimerIsStoppedAndStartDateIsNullWhenVisitingTimerStop() throws Exception {
         TimerState timerState = new TimerState();
         timerState.setIsTimerStarted(true);
         timerState.setStartDate(new Date());
@@ -87,7 +62,9 @@ public class WorkspaceControllerTests {
                 .sessionAttr("timerState", timerState))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState",
-                        hasProperty("startDate", nullValue())));
+                .andExpect(request().sessionAttribute("timerState", allOf(
+                        hasProperty("isTimerStarted", is(false)),
+                        hasProperty("startDate", nullValue())
+                )));
     }
 }
