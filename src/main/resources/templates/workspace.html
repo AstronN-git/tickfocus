@@ -21,7 +21,12 @@
             <div class="progress-text headline-medium">
                 Working...
             </div>
-            <div class="progress-bar" id="slice-progress"></div>
+            <div class="progress-bar" id="slice-progress">
+                <div class="active-indicator" id="slice-active"></div>
+                <div class="track-and-stop" id="slice-track">
+                    <div class="track-stop" id="slice-track-stop"></div>
+                </div>
+            </div>
             <div class="time-left body-large">
                 25min 12s left
             </div>
@@ -44,5 +49,10 @@
             </div>
         </div>
     </div>
+
+    <script th:inline="javascript">
+        const isTimerStarted = [[${timerState.isTimerStarted}]];
+    </script>
+    <script th:src="@{js/workspace.js}"></script>
 </body>
 </html>

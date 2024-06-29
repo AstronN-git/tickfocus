@@ -19,7 +19,36 @@
 .progress-bar {
   margin-top: 8px;
   height: 18px;
+  display: flex;
+  align-items: center;
+}
+.progress-bar .active-indicator {
+  height: 4px;
+  background-color: #485D92;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.progress-bar .active-indicator-none {
+  display: none;
+}
+.progress-bar .active-indicator-completed {
+  margin-right: 0;
+}
+.progress-bar .track-and-stop {
+  height: 4px;
   background-color: #DAE2FF;
+  border-radius: 2px;
+}
+.progress-bar .track-and-stop .track-stop {
+  height: 100%;
+  width: 4px;
+  background-color: #485D92;
+  margin-right: 0;
+  margin-left: auto;
+  border-radius: 100%;
+}
+.progress-bar .track-and-stop-done {
+  display: none;
 }
 
 .time-left {
