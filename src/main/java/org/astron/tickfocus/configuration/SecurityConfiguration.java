@@ -19,7 +19,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/workspace/**").permitAll()
                         .anyRequest().denyAll()
