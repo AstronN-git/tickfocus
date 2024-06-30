@@ -1,5 +1,6 @@
 package org.astron.tickfocus.service;
 
+import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,11 @@ public class UserService implements UserDetailsService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User save(User user) {
+        log.info("User created: {}", user);
+        return userRepository.save(user);
     }
 
     @Override

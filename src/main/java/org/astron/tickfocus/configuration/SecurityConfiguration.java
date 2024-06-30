@@ -22,13 +22,20 @@ public class SecurityConfiguration {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/workspace/**").permitAll()
-                        .anyRequest().denyAll()
+                        .anyRequest().authenticated()
                 )
                 .headers((headers) -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 )
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers(toH2Console())
+                )
+                .formLogin((login) -> login
+                        .defaultSuccessUrl("/workspace")
+                )
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
                 );
 
         return http.build();
