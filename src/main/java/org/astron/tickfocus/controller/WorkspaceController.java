@@ -14,7 +14,7 @@ import java.util.Date;
 @RequestMapping("/workspace")
 @SessionAttributes("timerState")
 public class WorkspaceController {
-    private TimerProperties timerProperties;
+    private final TimerProperties timerProperties;
 
     public WorkspaceController(TimerProperties timerProperties) {
         this.timerProperties = timerProperties;

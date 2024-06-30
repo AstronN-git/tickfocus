@@ -4,6 +4,7 @@ const progressEpsHigh = .005;
 
 const sliceActive = document.getElementById("slice-active")
 const sliceTrack = document.getElementById("slice-track")
+const timeText = document.getElementById("time-left")
 
 function updateProgress(progress) {
     if (progress >= 1) {
@@ -41,6 +42,17 @@ function updateProgress(progress) {
     sliceTrack.style.width = (1 - progress) * 100 + '%'
 }
 
+function updateTimeLeft(ms) {
+    let seconds = Math.trunc((ms / 1000) % 60)
+    let minutes = Math.trunc(ms / 60000)
+
+    if (minutes > 0) {
+        timeText.innerText = minutes + 'min ' + seconds + 's left'
+    } else {
+        timeText.innerText = seconds + 's left'
+    }
+}
+
 setInterval(() => {
     if (!isTimerStarted)
         return
@@ -50,4 +62,5 @@ setInterval(() => {
 
     let percentage = diff / fullTimerDuration
     updateProgress(percentage)
+    updateTimeLeft(fullTimerDuration - diff)
 }, 100)
