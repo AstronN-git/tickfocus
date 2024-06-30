@@ -22,6 +22,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/workspace/**").permitAll()
+                        .requestMatchers("/login", "/logout", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers((headers) -> headers
@@ -31,11 +32,14 @@ public class SecurityConfiguration {
                         .ignoringRequestMatchers(toH2Console())
                 )
                 .formLogin((login) -> login
-                        .defaultSuccessUrl("/workspace")
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/workspace", true)
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID")
                 );
 
         return http.build();

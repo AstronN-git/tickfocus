@@ -1,6 +1,7 @@
 package org.astron.tickfocus;
 
 import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.controller.AuthenticationController;
 import org.astron.tickfocus.controller.WorkspaceController;
 import org.astron.tickfocus.service.UserService;
 import org.junit.jupiter.api.Disabled;
@@ -23,10 +24,14 @@ class TickFocusApplicationTests {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    AuthenticationController authenticationController;
+
     @Test
     void contextLoads() {
         assertNotNull(workspaceController);
         assertNotNull(timerProperties);
+        assertNotNull(authenticationController);
         assertInstanceOf(UserService.class, userDetailsService);
     }
 
