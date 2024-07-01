@@ -1,0 +1,102 @@
+.navigation-drawer {
+  display: none;
+  position: absolute;
+  height: 100svh;
+  background-color: #F4F3FA;
+  width: 360px;
+  z-index: 1;
+  padding: 12px;
+}
+@media screen and (max-width: 450px) {
+  .navigation-drawer {
+    width: 100vw;
+  }
+}
+.navigation-drawer > * {
+  margin-bottom: 4px;
+}
+.navigation-drawer .nav-headline {
+  padding: 8px 8px 8px 16px;
+}
+.navigation-drawer .nav-section-header {
+  padding: 18px 16px;
+}
+.navigation-drawer .nav-divider-container {
+  padding: 0 16px;
+}
+.navigation-drawer .nav-divider-container .nav-divider {
+  background-color: #C5C6D0;
+  height: 1px;
+}
+.navigation-drawer a {
+  text-decoration: none;
+}
+.navigation-drawer .nav-item {
+  height: 56px;
+  padding: 16px 24px 16px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 56px;
+  color: #44464F;
+}
+.navigation-drawer .nav-item svg {
+  width: 24px;
+  height: 24px;
+}
+.navigation-drawer .nav-item span {
+  margin-left: 12px;
+}
+@media (hover: hover) {
+  .navigation-drawer .nav-item:hover {
+    background-color: rgba(29, 27, 32, 0.08);
+  }
+}
+.navigation-drawer .nav-item:active {
+  background-color: rgba(29, 27, 32, 0.12);
+}
+.navigation-drawer .nav-item > .lock {
+  margin-left: auto;
+}
+.navigation-drawer .nav-item-active {
+  background-color: #DAE2FF;
+  color: #001946;
+}
+.navigation-drawer .nav-item-active:hover {
+  background-color: #CDD2E9;
+}
+.navigation-drawer .nav-item-active:active {
+  background-color: #C5CAE0;
+}
+
+.navigation-drawer-shading {
+  display: none;
+  width: 100vw;
+  height: 100svh;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+}
+
+.navigation-button {
+  position: absolute;
+  background: none;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  color: #1A1B21;
+}
+.navigation-button svg {
+  width: 32px;
+  height: 32px;
+  margin: auto;
+}
+@media (hover: hover) {
+  .navigation-button:hover {
+    background-color: rgba(26, 27, 33, 0.08);
+  }
+}
+.navigation-button:active {
+  background-color: rgba(26, 27, 33, 0.12);
+}
+
+/*# sourceMappingURL=nav-drawer.css.map */

@@ -1,12 +1,8 @@
-let progress = 1
-
-const progressEpsHigh = .005;
-
-const sliceActive = document.getElementById("slice-active")
-const sliceTrack = document.getElementById("slice-track")
-const timeText = document.getElementById("time-left")
+let navigationDrawerState = false;
 
 function updateProgress(progress) {
+    const progressEpsHigh = .005;
+
     if (progress >= 1) {
         progress = 1;
         document.forms["end-timer"].submit()
@@ -15,6 +11,9 @@ function updateProgress(progress) {
     if (progress < 0) {
         progress = 0;
     }
+
+    const sliceActive = document.getElementById("slice-active")
+    const sliceTrack = document.getElementById("slice-track")
 
     if (progress + progressEpsHigh >= 1) {
         sliceActive.classList.remove('active-indicator-none')
@@ -43,6 +42,8 @@ function updateProgress(progress) {
 }
 
 function updateTimeLeft(ms) {
+    const timeText = document.getElementById("time-left")
+
     let seconds = Math.trunc((ms / 1000) % 60)
     let minutes = Math.trunc(ms / 60000)
 
@@ -50,6 +51,23 @@ function updateTimeLeft(ms) {
         timeText.innerText = minutes + 'min ' + seconds + 's left'
     } else {
         timeText.innerText = seconds + 's left'
+    }
+}
+
+function toggleNavigationDrawer() {
+    navigationDrawerState = !navigationDrawerState
+
+    console.log(navigationDrawerState)
+
+    const navigationDrawer = document.getElementById("navigation-drawer");
+    const navigationDrawerShading = document.getElementById("navigation-drawer-shading");
+
+    if (navigationDrawerState) {
+        navigationDrawer.style.display = 'block'
+        navigationDrawerShading.style.display = 'block'
+    } else {
+        navigationDrawer.style.display = 'none'
+        navigationDrawerShading.style.display = 'none'
     }
 }
 

@@ -1,9 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 $headline-large: 32px/40px "Roboto", sans-serif;
 $headline-medium: 28px/36px "Roboto", sans-serif;
 $headline-small: 24px/32px "Roboto", sans-serif;
 
+$headline-large-500: 500 32px/40px "Roboto", sans-serif;
+$headline-medium-500: 500 28px/36px "Roboto", sans-serif;
+$headline-small-500: 500 24px/32px "Roboto", sans-serif;
+
 $body-large: 16px/24px "Roboto", sans-serif;
 $body-medium: 14px/20px "Roboto", sans-serif;
 $body-small: 12px/16px "Roboto", sans-serif;
+
+$body-large-500: 500 16px/24px "Roboto", sans-serif;
+$body-medium-500: 500 14px/20px "Roboto", sans-serif;
+$body-small-500: 500 12px/16px "Roboto", sans-serif;
