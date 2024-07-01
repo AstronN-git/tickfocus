@@ -1,6 +1,8 @@
 package org.astron.tickfocus.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -21,15 +23,21 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true)
-    @NotNull(message = "Username is required")
-    @Length(min = 3, max = 30,
-            message = "Length of username should be between 3 and 30 symbols")
+    @NotBlank(message = "is required")
+    @Length(min = 3, message = "is too short")
+    @Length(max = 30, message = "is too long")
     @Pattern(regexp = "^[a-zA-Z_]+$",
-            message = "Username could contain only latin letters and underscore")
+            message = "should contain only latin letters and underscores")
     private String username;
 
-    @NotNull(message = "Password is required")
-    @Length(min = 3, max = 255, message = "Length of password should be between 3 and 255 symbols")
+    @Column(unique = true)
+    @NotBlank(message = "is required")
+    @Email(message = "is not valid")
+    private String email;
+
+    @NotBlank(message = "is required")
+    @Length(min = 3, message = "is too short")
+    @Length(max = 255, message = "is too long")
     private String password;
 
     @Override

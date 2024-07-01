@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,13 +28,24 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public void validateUniqueFields(User user, Errors errors) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            errors.rejectValue("email", "is already taken");
+        }
+
+        if (userRepository.existsByUsername(user.getUsername())) {
+            errors.rejectValue("username", "is already taken");
+        }
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findUserByUsername(username)
+                .or(() -> userRepository.findUserByEmail(username))
                 .orElseThrow(() -> {
                     log.info("Username {} not found", username);
-                    return new UsernameNotFoundException("Username " + username + "not found");
+                    return new UsernameNotFoundException("Username " + username + " not found");
                 });
     }
 }

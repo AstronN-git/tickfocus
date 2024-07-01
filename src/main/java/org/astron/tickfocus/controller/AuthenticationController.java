@@ -36,6 +36,8 @@ public class AuthenticationController {
             @ModelAttribute(name = "userObject") @Valid User user,
             Errors errors
     ) {
+        userService.validateUniqueFields(user, errors);
+
         if (errors.hasErrors()) {
             return "register";
         }
