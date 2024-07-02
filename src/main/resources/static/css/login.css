@@ -1,8 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
-.login-area {
+.form-area {
   width: 100vw;
   height: 100svh;
-  padding: 185px 35% 0;
+  display: grid;
+  padding-top: 185px;
+  grid-template-columns: 35% 1fr 35%;
+  grid-template-rows: fit-content(0) auto;
+}
+
+.login-area {
+  grid-column: 2;
+  height: fit-content;
+  padding: 0;
 }
 .login-area * {
   color: #1A1B21;
@@ -10,21 +19,18 @@
 .login-area > * {
   margin-bottom: 30px;
 }
-.login-area .credentials-incorrect {
-  background-color: #EEEDF4;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  padding: 12px 16px 8px;
-}
-.login-area .credentials-incorrect > * {
-  margin-bottom: 4px;
-}
 .login-area .input-field {
   height: 56px;
   border-radius: 4px;
   border: 2px solid #757780;
   padding: 4px 0 4px 16px;
   cursor: text;
+}
+.login-area .input-field-err {
+  border: 2px solid #BA1A1A;
+}
+.login-area .input-field-err .input-placeholder {
+  color: #BA1A1A;
 }
 .login-area .input-field-active {
   border: 4px solid #485D92;
@@ -51,7 +57,7 @@
   width: fit-content;
   left: -4px;
   top: -56px;
-  color: #485D92;
+  color: #485D92 !important;
 }
 .login-area input {
   width: 100%;
@@ -99,17 +105,37 @@
   box-shadow: none;
 }
 
+.error-area {
+  padding: 62px 15% 0;
+  grid-column: 3;
+}
+.error-area .credentials-incorrect {
+  background-color: #EEEDF4;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 12px 16px 8px;
+  margin-bottom: 15px;
+}
+.error-area .credentials-incorrect > * {
+  margin-bottom: 4px;
+}
+
 @media screen and (max-width: 1040px) {
-  .login-area {
-    padding: 185px 25% 0;
+  .form-area {
+    grid-template-columns: 25% 1fr 25%;
+    padding-top: 100px;
   }
   .buttons-container button, .buttons-container a {
     padding: 10px 24px;
   }
+  .error-area {
+    grid-column: 2;
+    padding: 0 15%;
+  }
 }
 @media screen and (max-width: 550px) {
-  .login-area {
-    padding: 185px 15% 0;
+  .form-area {
+    grid-template-columns: 15% 1fr 15%;
   }
 }
 @media screen and (max-width: 450px) {

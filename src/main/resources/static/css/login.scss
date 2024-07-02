@@ -1,10 +1,19 @@
 @import 'colors';
 @import 'fonts';
 
-.login-area {
+.form-area {
   width: 100vw;
   height: 100svh;
-  padding: 185px 35% 0;
+  display: grid;
+  padding-top: 185px;
+  grid-template-columns: 35% 1fr 35%;
+  grid-template-rows: fit-content(0) auto;
+}
+
+.login-area {
+  grid-column: 2;
+  height: fit-content;
+  padding: 0;
   * {
     color: $on-background;
   }
@@ -13,23 +22,19 @@
     margin-bottom: 30px;
   }
 
-  .credentials-incorrect {
-    background-color: $surface-container;
-    box-shadow: 0 1px 2px rgba(#000, .3), 0 2px 6px rgba(#000, .15);
-    border-radius: 12px;
-    padding: 12px 16px 8px;
-
-    >* {
-      margin-bottom: 4px;
-    }
-  }
-
   .input-field {
     height: 56px;
     border-radius: 4px;
     border: 2px solid $outline;
     padding: 4px 0 4px 16px;
     cursor: text;
+  }
+
+  .input-field-err {
+    border: 2px solid $error;
+    .input-placeholder {
+      color: $error;
+    }
   }
 
   .input-field-active {
@@ -61,7 +66,7 @@
     width: fit-content;
     left: -4px;
     top: -56px;
-    color: $primary;
+    color: $primary !important;
   }
 
   input {
@@ -117,9 +122,28 @@
   }
 }
 
+.error-area {
+  padding: 62px 15% 0;
+  grid-column: 3;
+
+  .credentials-incorrect {
+    background-color: $surface-container;
+    box-shadow: 0 1px 2px rgba(#000, .3), 0 2px 6px rgba(#000, .15);
+    border-radius: 12px;
+    padding: 12px 16px 8px;
+
+    >* {
+      margin-bottom: 4px;
+    }
+
+    margin-bottom: 15px;
+  }
+}
+
 @media screen and (max-width: 1040px) {
-  .login-area {
-    padding: 185px 25% 0;
+  .form-area {
+    grid-template-columns: 25% 1fr 25%;
+    padding-top: 100px;
   }
 
   .buttons-container {
@@ -127,11 +151,16 @@
       padding: 10px 24px;
     }
   }
+
+  .error-area {
+    grid-column: 2;
+    padding: 0 15%;
+  }
 }
 
 @media screen and (max-width: 550px) {
-  .login-area {
-    padding: 185px 15% 0;
+  .form-area {
+    grid-template-columns: 15% 1fr 15%;
   }
 }
 

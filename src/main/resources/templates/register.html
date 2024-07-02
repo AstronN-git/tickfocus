@@ -8,29 +8,202 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TickFocus</title>
     <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/login.css}">
+    <link rel="stylesheet" th:href="@{css/components/nav-drawer.css}">
 </head>
 <body>
-<form th:action="@{/register}" method="post" th:object="${userObject}">
-    <div th:if="${#fields.hasErrors()}">
-        <span th:text="${#fields.allErrors().get(0)}"></span>
+<div class="navigation-drawer" id="navigation-drawer">
+    <div class="nav-headline headline-small-500">
+        TickFocus
     </div>
-    <div>
-        <label for="username" class="body-medium">Username: </label>
-        <input type="text" th:field="*{username}" id="username">
+    <div class="nav-section-header body-medium-500">
+        Pages
     </div>
-    <div>
-        <label for="email" class="body-medium">Email: </label>
-        <input type="text" th:field="*{email}" id="email">
-    </div>
-    <div>
-        <label for="password" class="body-medium">Password: </label>
-        <input type="password" th:field="*{password}" id="password">
-    </div>
-    <div>
-        <input type="submit" value="Register" class="body-medium">
+    <a class="nav-item body-medium-500" th:href="@{/workspace}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
 
-        <a th:href="@{/login}">Sign In</a>
+        <span>Workspace</span>
+    </a>
+    <a class="nav-item body-medium-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M22 8c0-.55-.45-1-1-1h-7c-.55 0-1 .45-1 1s.45 1 1 1h7c.55 0 1-.45 1-1Zm-9 8c0 .55.45 1 1 1h7c.55 0 1-.45 1-1s-.45-1-1-1h-7c-.55 0-1 .45-1 1ZM10.47 4.63c.39.39.39 1.02 0 1.41l-4.23 4.25c-.39.39-1.02.39-1.42 0L2.7 8.16a.996.996 0 1 1 1.41-1.41l1.42 1.42 3.54-3.54c.38-.38 1.02-.38 1.4 0Zm.01 8.01c.39.39.39 1.02 0 1.41L6.25 18.3c-.39.39-1.02.39-1.42 0L2.7 16.16a.996.996 0 1 1 1.41-1.41l1.42 1.42 3.54-3.54c.38-.38 1.02-.38 1.41.01Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+
+        <span>Tasks</span>
+
+        <svg class="lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2Zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2ZM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+    </a>
+    <div class="nav-divider-container">
+        <div class="nav-divider"></div>
+    </div>
+    <div class="nav-section-header body-medium-500">
+        Your account
+    </div>
+
+    <a th:href="@{/login}" class="nav-item body-medium-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M10.3 7.7a.984.984 0 0 0 0 1.4l1.9 1.9H3c-.55 0-1 .45-1 1s.45 1 1 1h9.2l-1.9 1.9a.984.984 0 0 0 0 1.4c.39.39 1.01.39 1.4 0l3.59-3.59a.996.996 0 0 0 0-1.41L11.7 7.7a.984.984 0 0 0-1.4 0ZM20 19h-7c-.55 0-1 .45-1 1s.45 1 1 1h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-7c-.55 0-1 .45-1 1s.45 1 1 1h7v14Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+
+        <span>Sign In</span>
+    </a>
+
+    <a th:href="@{/register}" class="nav-item nav-item-active body-medium-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M15.39 14.56C13.71 13.7 11.53 13 9 13s-4.71.7-6.39 1.56A2.97 2.97 0 0 0 1 17.22V20h16v-2.78c0-1.12-.61-2.15-1.61-2.66ZM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm11-3V7c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+
+        <span>Create Account</span>
+    </a>
+</div>
+<div class="navigation-drawer-shading" id="navigation-drawer-shading" onclick="toggleNavigationDrawer()"></div>
+<button class="navigation-button" onclick="toggleNavigationDrawer()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 48 48">
+        <g clip-path="url(#a)">
+            <path fill="currentColor" d="M24 16c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4Zm0 4c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Zm0 12c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z"/>
+        </g>
+        <defs>
+            <clipPath id="a">
+                <path fill="currentColor" d="M0 0h48v48H0z"/>
+            </clipPath>
+        </defs>
+    </svg>
+</button>
+
+<form th:action="@{/register}" method="post" th:object="${userObject}" id="register-form">
+    <div class="form-area">
+        <div class="login-area">
+            <div class="headline-small">Create Account</div>
+            <div class="input-field" th:classappend="${#fields.hasErrors('username') ? 'input-field-err' : ''}"
+                 onclick="setInputActive('username')" id="username-field">
+                <input class="body-large" type="text" th:field="*{username}" id="username">
+                <div class="input-placeholder body-large" id="username-placeholder">
+                    Username
+                </div>
+            </div>
+
+            <div class="input-field" th:classappend="${#fields.hasErrors('email') ? 'input-field-err' : ''}"
+                 onclick="setInputActive('email')" id="email-field">
+                <input class="body-large" type="text" th:field="*{email}" id="email">
+                <div class="input-placeholder body-large" id="email-placeholder">
+                    Email
+                </div>
+            </div>
+
+            <div class="input-field" th:classappend="${#fields.hasErrors('password') ? 'input-field-err' : ''}"
+                 onclick="setInputActive('password')" id="password-field">
+                <input class="body-large" type="password" th:field="*{password}" id="password" oninput="validatePassword()">
+                <div class="input-placeholder body-large" id="password-placeholder">
+                    Password
+                </div>
+            </div>
+            <div class="input-field" onclick="setInputActive('repeat-password')" id="repeat-password-field">
+                <input class="body-large" type="password" id="repeat-password" oninput="validatePassword()">
+                <div class="input-placeholder body-large" id="repeat-password-placeholder">
+                    Repeat Password
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button type="submit" class="body-medium-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <g clip-path="url(#a)">
+                            <path fill="currentColor" d="M15.39 14.56C13.71 13.7 11.53 13 9 13s-4.71.7-6.39 1.56A2.97 2.97 0 0 0 1 17.22V20h16v-2.78c0-1.12-.61-2.15-1.61-2.66ZM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm11-3V7c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2Z"/>
+                        </g>
+                        <defs>
+                            <clipPath id="a">
+                                <path fill="currentColor" d="M0 0h24v24H0z"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <span>Sign Up</span>
+                </button>
+
+                <a th:href="@{/login}" class="body-medium-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <g clip-path="url(#a)">
+                            <path fill="currentColor" d="M10.3 7.7a.984.984 0 0 0 0 1.4l1.9 1.9H3c-.55 0-1 .45-1 1s.45 1 1 1h9.2l-1.9 1.9a.984.984 0 0 0 0 1.4c.39.39 1.01.39 1.4 0l3.59-3.59a.996.996 0 0 0 0-1.41L11.7 7.7a.984.984 0 0 0-1.4 0ZM20 19h-7c-.55 0-1 .45-1 1s.45 1 1 1h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-7c-.55 0-1 .45-1 1s.45 1 1 1h7v14Z"/>
+                        </g>
+                        <defs>
+                            <clipPath id="a">
+                                <path fill="currentColor" d="M0 0h24v24H0z"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <span>Sign In</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="error-area">
+            <div th:if="${#fields.hasErrors('username')}" class="credentials-incorrect">
+                <div class="body-large-500">Invalid username</div>
+                <div th:each="error : ${#fields.errors('username')}" class="body-large">
+                    <span th:text="${error}"></span>
+                </div>
+            </div>
+            <div th:if="${#fields.hasErrors('email')}" class="credentials-incorrect">
+                <div class="body-large-500">Invalid email</div>
+                <div th:each="error : ${#fields.errors('email')}" class="body-large">
+                    <span th:text="${error}"></span>
+                </div>
+            </div>
+            <div th:if="${#fields.hasErrors('password')}" class="credentials-incorrect">
+                <div class="body-large-500">Invalid password</div>
+                <div th:each="error : ${#fields.errors('password')}" class="body-large">
+                    <span th:text="${error}"></span>
+                </div>
+            </div>
+            <div class="credentials-incorrect" id="password-rep-err" style="display: none">
+                <div class="body-large-500">Passwords do not match</div>
+                <div class="body-large">
+                    <span>Repeated password do not match original one</span>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
+
+<script th:src="@{js/components/nav-drawer.js}"></script>
+<script th:src="@{js/login.js}"></script>
+<script th:src="@{js/register.js}"></script>
 </body>
 </html>

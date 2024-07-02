@@ -23,21 +23,19 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true)
-    @NotBlank(message = "is required")
-    @Length(min = 3, message = "is too short")
-    @Length(max = 30, message = "is too long")
+    @Length(min = 3, message = "Username is too short.")
+    @Length(max = 30, message = "Username is too long.")
     @Pattern(regexp = "^[a-zA-Z_]+$",
-            message = "should contain only latin letters and underscores")
+            message = "Username should contain only latin letters and underscores.")
     private String username;
 
     @Column(unique = true)
-    @NotBlank(message = "is required")
-    @Email(message = "is not valid")
+    @NotBlank(message = "Email is required.")
+    @Email(message = "Email is not valid.")
     private String email;
 
-    @NotBlank(message = "is required")
-    @Length(min = 3, message = "is too short")
-    @Length(max = 255, message = "is too long")
+    @Length(min = 3, message = "Password is too short.")
+    @Length(max = 255, message = "Password is too long.")
     private String password;
 
     @Override
