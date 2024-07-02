@@ -1,7 +1,7 @@
 <!doctype html>
 <!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en"
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -66,7 +66,7 @@
         Your account
     </div>
 
-    <a th:href="@{/login}" class="nav-item nav-item-active body-medium-500">
+    <a th:href="@{/login}" class="nav-item nav-item-active body-medium-500" sec:authorize="isAnonymous()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <g clip-path="url(#a)">
                 <path fill="currentColor" d="M10.3 7.7a.984.984 0 0 0 0 1.4l1.9 1.9H3c-.55 0-1 .45-1 1s.45 1 1 1h9.2l-1.9 1.9a.984.984 0 0 0 0 1.4c.39.39 1.01.39 1.4 0l3.59-3.59a.996.996 0 0 0 0-1.41L11.7 7.7a.984.984 0 0 0-1.4 0ZM20 19h-7c-.55 0-1 .45-1 1s.45 1 1 1h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-7c-.55 0-1 .45-1 1s.45 1 1 1h7v14Z"/>
@@ -78,10 +78,11 @@
             </defs>
         </svg>
 
+
         <span>Sign In</span>
     </a>
 
-    <a th:href="@{/register}" class="nav-item body-medium-500">
+    <a th:href="@{/register}" class="nav-item body-medium-500" sec:authorize="isAnonymous()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <g clip-path="url(#a)">
                 <path fill="currentColor" d="M15.39 14.56C13.71 13.7 11.53 13 9 13s-4.71.7-6.39 1.56A2.97 2.97 0 0 0 1 17.22V20h16v-2.78c0-1.12-.61-2.15-1.61-2.66ZM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm11-3V7c0-.55-.45-1-1-1s-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2Z"/>
@@ -93,8 +94,45 @@
             </defs>
         </svg>
 
+
         <span>Create Account</span>
     </a>
+
+    <a class="nav-item body-medium-500" sec:authorize="isAuthenticated()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+
+        <span>My Profile</span>
+
+        <svg class="lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <g clip-path="url(#a)">
+                <path fill="currentColor" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2Zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2ZM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9Z"/>
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="currentColor" d="M0 0h24v24H0z"/>
+                </clipPath>
+            </defs>
+        </svg>
+    </a>
+
+    <form th:action="@{/logout}" method="post" id="logout-form" style="display: none"></form>
+
+    <button class="nav-item body-medium-500" sec:authorize="isAuthenticated()" type="submit" form="logout-form">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path fill="#000" d="M15.325 16.275a1.112 1.112 0 0 1-.275-.738c0-.275.092-.504.275-.687l1.85-1.85H10a.965.965 0 0 1-.712-.288A.965.965 0 0 1 9 12c0-.283.096-.521.288-.713A.967.967 0 0 1 10 11h7.175l-1.85-1.85c-.2-.2-.3-.437-.3-.712 0-.275.1-.513.3-.713.183-.2.413-.3.688-.3.275 0 .504.092.687.275l3.6 3.6c.1.1.171.208.213.325.041.117.062.242.062.375s-.02.258-.062.375a.883.883 0 0 1-.213.325l-3.6 3.6c-.217.217-.454.312-.712.287a1.052 1.052 0 0 1-.663-.312ZM5 21a1.93 1.93 0 0 1-1.413-.587A1.928 1.928 0 0 1 3 19V5c0-.55.196-1.021.587-1.413A1.928 1.928 0 0 1 5 3h6a.97.97 0 0 1 .713.287A.97.97 0 0 1 12 4a.97.97 0 0 1-.287.712A.968.968 0 0 1 11 5H5v14h6c.283 0 .521.096.713.288A.967.967 0 0 1 12 20a.97.97 0 0 1-.287.712A.968.968 0 0 1 11 21H5Z"/>
+        </svg>
+
+        <span>Logout</span>
+    </button>
 </div>
 <div class="navigation-drawer-shading" id="navigation-drawer-shading" onclick="toggleNavigationDrawer()"></div>
 <button class="navigation-button" onclick="toggleNavigationDrawer()">

@@ -32,6 +32,8 @@
   text-decoration: none;
 }
 .navigation-drawer .nav-item {
+  width: 100%;
+  background: none;
   height: 56px;
   padding: 16px 24px 16px 16px;
   display: flex;
