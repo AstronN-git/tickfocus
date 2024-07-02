@@ -1,5 +1,3 @@
-let navigationDrawerState = false;
-
 function updateProgress(progress) {
     const progressEpsHigh = .005;
 
@@ -51,23 +49,6 @@ function updateTimeLeft(ms) {
         timeText.innerText = minutes + 'min ' + seconds + 's left'
     } else {
         timeText.innerText = seconds + 's left'
-    }
-}
-
-function toggleNavigationDrawer() {
-    navigationDrawerState = !navigationDrawerState
-
-    console.log(navigationDrawerState)
-
-    const navigationDrawer = document.getElementById("navigation-drawer");
-    const navigationDrawerShading = document.getElementById("navigation-drawer-shading");
-
-    if (navigationDrawerState) {
-        navigationDrawer.style.display = 'block'
-        navigationDrawerShading.style.display = 'block'
-    } else {
-        navigationDrawer.style.display = 'none'
-        navigationDrawerShading.style.display = 'none'
     }
 }
 
