@@ -55,3 +55,7 @@ idea {
 springBoot {
     buildInfo()
 }
+
+bootBuildImage {
+    imageName = "astronnn/${rootProject.name.toLowerCase()}:${version}"
+}
