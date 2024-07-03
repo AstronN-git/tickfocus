@@ -22,7 +22,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/workspace/**").permitAll()
-                        .requestMatchers("/login", "/logout", "/register").permitAll()
+                        .requestMatchers("/login", "/register").anonymous()
+                        .requestMatchers("/logout").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers((headers) -> headers
