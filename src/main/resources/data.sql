@@ -1,1 +1,0 @@
-insert into users (username, email, password) values ('admin', 'admin@gmail.com', '$2a$12$Ob5v.an7uIHWThvLgIbiEOTgkPWJAalwGMI8kCIFlS5.mrnJiWLJ.');

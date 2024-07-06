@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TimerState {
+public class TimerStateModel {
     private Boolean isTimerStarted;
-    private Date startDate;
+    private LocalDateTime startDate;
 }

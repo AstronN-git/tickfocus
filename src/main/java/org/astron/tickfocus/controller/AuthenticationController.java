@@ -42,7 +42,7 @@ public class AuthenticationController {
             return "register";
         }
 
-        User savedUser = userService.save(user);
+        User savedUser = userService.registerUser(user);
         log.info("User registered: {}", savedUser);
 
         return "redirect:/login";

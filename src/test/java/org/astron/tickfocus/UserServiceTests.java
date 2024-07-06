@@ -5,12 +5,9 @@ import org.astron.tickfocus.repository.UserRepository;
 import org.astron.tickfocus.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalMatchers;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +18,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,13 +54,13 @@ public class UserServiceTests {
     }
 
     @Test
-    void testUserIsSavedOnSave() {
+    void testUserIsSavedOnRegisterUser() {
         User user = new User();
 
         when(userRepository.save(any(User.class)))
                 .thenReturn(user);
 
-        User returnedUser = userService.save(user);
+        User returnedUser = userService.registerUser(user);
         assertNotNull(returnedUser);
     }
 

@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Disabled("test is too long; enable while building for production")
 class TickFocusApplicationTests {
     @Autowired
     WorkspaceController workspaceController;

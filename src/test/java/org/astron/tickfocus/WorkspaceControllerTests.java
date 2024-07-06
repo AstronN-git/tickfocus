@@ -3,7 +3,8 @@ package org.astron.tickfocus;
 import org.astron.tickfocus.configuration.SecurityConfiguration;
 import org.astron.tickfocus.configuration.TimerProperties;
 import org.astron.tickfocus.controller.WorkspaceController;
-import org.astron.tickfocus.model.TimerState;
+import org.astron.tickfocus.model.TimerStateModel;
+import org.astron.tickfocus.repository.TimerStateRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,6 +29,9 @@ public class WorkspaceControllerTests {
 
     @MockBean
     TimerProperties timerProperties;
+
+    @MockBean
+    TimerStateRepository timerStateRepository;
 
     @Test
     void testReturnsWorkspaceView() throws Exception {
@@ -48,7 +53,7 @@ public class WorkspaceControllerTests {
 
     @Test
     void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
-        Date date = new Date();
+        LocalDateTime localDateTime = LocalDateTime.now();
 
         mockMvc.perform(get("/workspace/startTimer"))
                 .andExpect(status().is3xxRedirection())
@@ -57,19 +62,19 @@ public class WorkspaceControllerTests {
                         hasProperty("isTimerStarted", is(true)),
                         hasProperty("startDate", allOf(
                                 notNullValue(),
-                                greaterThanOrEqualTo(date)
+                                greaterThanOrEqualTo(localDateTime)
                         ))
                 )));
     }
 
     @Test
     void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
-        TimerState timerState = new TimerState();
-        timerState.setIsTimerStarted(true);
-        timerState.setStartDate(new Date());
+        TimerStateModel timerStateModel = new TimerStateModel();
+        timerStateModel.setIsTimerStarted(true);
+        timerStateModel.setStartDate(LocalDateTime.now());
 
         mockMvc.perform(get("/workspace/endTimer")
-                .sessionAttr("timerState", timerState))
+                .sessionAttr("timerState", timerStateModel))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/workspace"))
                 .andExpect(request().sessionAttribute("timerState", allOf(
