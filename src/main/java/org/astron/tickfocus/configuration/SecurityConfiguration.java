@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 )
                 .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(toH2Console())
+                        .ignoringRequestMatchers("/h2-console/**")
                 )
                 .formLogin((login) -> login
                         .loginPage("/login")
