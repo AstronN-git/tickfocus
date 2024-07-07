@@ -56,8 +56,10 @@ setInterval(() => {
     if (!isTimerStarted)
         return
 
-    let date = Date.now()
-    let diff = date - timerStartDate
+    let date = new Date()
+    let dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
+    let diff = dateUTC - timerStartDate
 
     let percentage = diff / fullTimerDuration
     updateProgress(percentage)
