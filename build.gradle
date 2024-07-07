@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.3.1'
     id 'io.spring.dependency-management' version '1.1.5'
     id 'idea'
+    id 'jacoco'
 }
 
 group = 'org.astron'
@@ -58,4 +59,12 @@ springBoot {
 
 bootBuildImage {
     imageName = "astronnn/${rootProject.name.toLowerCase()}:${version}"
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
 }
