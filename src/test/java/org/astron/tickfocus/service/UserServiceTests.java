@@ -1,8 +1,7 @@
-package org.astron.tickfocus;
+package org.astron.tickfocus.service;
 
 import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
-import org.astron.tickfocus.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

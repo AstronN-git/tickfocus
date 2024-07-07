@@ -1,8 +1,7 @@
-package org.astron.tickfocus;
+package org.astron.tickfocus.controller;
 
 import org.astron.tickfocus.configuration.SecurityConfiguration;
 import org.astron.tickfocus.configuration.TimerProperties;
-import org.astron.tickfocus.controller.WorkspaceController;
 import org.astron.tickfocus.model.TimerStateModel;
 import org.astron.tickfocus.repository.TimerStateRepository;
 import org.junit.jupiter.api.Test;
@@ -13,17 +12,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(WorkspaceController.class)
 @Import(SecurityConfiguration.class)
-public class WorkspaceControllerTests {
+public class WorkspaceControllerNonAuthenticatedTests {
     @Autowired
     MockMvc mockMvc;
 
