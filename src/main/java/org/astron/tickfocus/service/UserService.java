@@ -32,12 +32,12 @@ public class UserService implements UserDetailsService {
     }
 
     public void validateUniqueFields(User user, Errors errors) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            errors.rejectValue("email", "is already taken");
+        if (userRepository.existsByUsername(user.getUsername())) {
+            errors.rejectValue("username", "taken", "Username is already taken");
         }
 
-        if (userRepository.existsByUsername(user.getUsername())) {
-            errors.rejectValue("username", "is already taken");
+        if (userRepository.existsByEmail(user.getEmail())) {
+            errors.rejectValue("email", "taken", "Email is already taken");
         }
     }
 
