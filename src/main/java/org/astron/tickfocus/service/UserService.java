@@ -1,5 +1,7 @@
 package org.astron.tickfocus.service;
 
+import org.astron.tickfocus.configuration.DefaultTimerSettings;
+import org.astron.tickfocus.entity.DatabaseTimerSettings;
 import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
 import org.slf4j.Logger;
@@ -16,14 +18,22 @@ public class UserService implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DefaultTimerSettings defaultTimerSettings;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, DefaultTimerSettings defaultTimerSettings) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.defaultTimerSettings = defaultTimerSettings;
     }
 
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        DatabaseTimerSettings timerSettings = new DatabaseTimerSettings();
+        timerSettings.setRestingTime(defaultTimerSettings.getRestingTime());
+        timerSettings.setWorkingTime(defaultTimerSettings.getWorkingTime());
+
+        user.setTimerSettings(timerSettings);
         log.info("User created: {}", user);
         return userRepository.save(user);
     }

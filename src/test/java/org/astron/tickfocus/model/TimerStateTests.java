@@ -1,6 +1,6 @@
 package org.astron.tickfocus.model;
 
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.DefaultTimerSettings;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TimerStateTests {
     @Test
     void testStateMachineWorksCorrectly() {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(new TimerProperties());
+        TimerStatusModel timerStatusModel = new TimerStatusModel(new DefaultTimerSettings());
 
         assertEquals(timerStatusModel.getTimerState(), timerStatusModel.getStoppedState());
 
@@ -40,7 +40,7 @@ public class TimerStateTests {
 
     @Test
     void testIllegalActionOnWorkingState() {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(new TimerProperties());
+        TimerStatusModel timerStatusModel = new TimerStatusModel(new DefaultTimerSettings());
         timerStatusModel.start();
 
         assertThrows(IllegalStateException.class, timerStatusModel::start);
@@ -48,7 +48,7 @@ public class TimerStateTests {
 
     @Test
     void testIllegalActionOnRestingState() {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(new TimerProperties());
+        TimerStatusModel timerStatusModel = new TimerStatusModel(new DefaultTimerSettings());
         timerStatusModel.setTimerState(timerStatusModel.getRestingState());
 
         assertThrows(IllegalStateException.class, timerStatusModel::start);
@@ -56,7 +56,7 @@ public class TimerStateTests {
 
     @Test
     void testIllegalActionsOnStoppedState() {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(new TimerProperties());
+        TimerStatusModel timerStatusModel = new TimerStatusModel(new DefaultTimerSettings());
         timerStatusModel.setTimerState(timerStatusModel.getStoppedState());
 
         assertThrows(IllegalStateException.class, timerStatusModel::stop);

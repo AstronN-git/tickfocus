@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "timer")
-public class TimerProperties {
+public class DefaultTimerSettings implements TimerSettings {
     private int workingTime = 1500000; // 25 minutes
     private int restingTime = 300000; // 5 minutes
 }

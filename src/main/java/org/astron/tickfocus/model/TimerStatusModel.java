@@ -1,7 +1,7 @@
 package org.astron.tickfocus.model;
 
 import lombok.*;
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.TimerSettings;
 
 import java.time.LocalDateTime;
 
@@ -21,13 +21,13 @@ public class TimerStatusModel {
 
     private TimerState timerState;
 
-    private TimerProperties timerProperties;
+    private TimerSettings timerSettings;
 
-    public TimerStatusModel(TimerProperties timerProperties) {
-        this.timerProperties = timerProperties;
-        stoppedState = new TimerStoppedState(timerProperties);
-        workingState = new TimerWorkingState(timerProperties);
-        restingState = new TimerRestingState(timerProperties);
+    public TimerStatusModel(TimerSettings timerSettings) {
+        this.timerSettings = timerSettings;
+        stoppedState = new TimerStoppedState(timerSettings);
+        workingState = new TimerWorkingState(timerSettings);
+        restingState = new TimerRestingState(timerSettings);
 
         this.timerState = stoppedState;
     }

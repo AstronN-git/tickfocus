@@ -1,8 +1,11 @@
 package org.astron.tickfocus.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.DefaultTimerSettings;
+import org.astron.tickfocus.configuration.TimerSettings;
+import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.model.TimerStatusModel;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,10 +17,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/workspace")
 @SessionAttributes("timerStatus")
 public class WorkspaceController {
-    private final TimerProperties timerProperties;
+    private final DefaultTimerSettings defaultTimerSettings;
 
-    public WorkspaceController(TimerProperties timerProperties) {
-        this.timerProperties = timerProperties;
+    public WorkspaceController(DefaultTimerSettings defaultTimerSettings) {
+        this.defaultTimerSettings = defaultTimerSettings;
     }
 
     @GetMapping
@@ -56,7 +59,16 @@ public class WorkspaceController {
     }
 
     @ModelAttribute("timerStatus")
-    public TimerStatusModel timerState() {
-        return new TimerStatusModel(timerProperties);
+    public TimerStatusModel timerState(@AuthenticationPrincipal User user) {
+        TimerSettings timerSettings = null;
+
+        if (user != null) {
+            timerSettings = user.getTimerSettings();
+        }
+
+        if (timerSettings != null)
+            return new TimerStatusModel(timerSettings);
+
+        return new TimerStatusModel(defaultTimerSettings);
     }
 }

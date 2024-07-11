@@ -1,6 +1,6 @@
 package org.astron.tickfocus.model;
 
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.TimerSettings;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,10 +8,10 @@ import java.time.temporal.ChronoUnit;
 
 class TimerRestingState implements TimerState {
     LocalDateTime startDate;
-    TimerProperties timerProperties;
+    TimerSettings timerSettings;
 
-    public TimerRestingState(TimerProperties timerProperties) {
-        this.timerProperties = timerProperties;
+    public TimerRestingState(TimerSettings timerSettings) {
+        this.timerSettings = timerSettings;
     }
 
     @Override
@@ -26,7 +26,7 @@ class TimerRestingState implements TimerState {
 
     @Override
     public LocalDateTime getEndDate() {
-        return startDate.plus(timerProperties.getRestingTime(), ChronoUnit.MILLIS);
+        return startDate.plus(timerSettings.getRestingTime(), ChronoUnit.MILLIS);
     }
 
     @Override

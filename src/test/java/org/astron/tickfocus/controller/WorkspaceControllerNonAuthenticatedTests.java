@@ -1,7 +1,8 @@
 package org.astron.tickfocus.controller;
 
+import org.astron.tickfocus.configuration.DefaultTimerSettings;
 import org.astron.tickfocus.configuration.SecurityConfiguration;
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.TimerSettings;
 import org.astron.tickfocus.model.TimerStatusModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class WorkspaceControllerNonAuthenticatedTests {
     @Autowired
     MockMvc mockMvc;
 
-    @MockBean
-    TimerProperties timerProperties;
+    @MockBean(DefaultTimerSettings.class)
+    TimerSettings timerSettings;
 
     @Test
     void testReturnsWorkspaceView() throws Exception {
@@ -49,7 +50,7 @@ public class WorkspaceControllerNonAuthenticatedTests {
     void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
         LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
 
-        when(timerProperties.getWorkingTime())
+        when(timerSettings.getWorkingTime())
                 .thenReturn(1500000);
 
         mockMvc.perform(get("/workspace/startTimer"))
@@ -69,7 +70,7 @@ public class WorkspaceControllerNonAuthenticatedTests {
 
     @Test
     void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(timerProperties);
+        TimerStatusModel timerStatusModel = new TimerStatusModel(timerSettings);
         timerStatusModel.start();
 
         mockMvc.perform(get("/workspace/stopTimer")
@@ -84,10 +85,10 @@ public class WorkspaceControllerNonAuthenticatedTests {
 
     @Test
     void testTimerIsSwitchedToRestingWhenVisitingTimerEnd() throws Exception {
-        TimerStatusModel timerStatusModel = new TimerStatusModel(timerProperties);
+        TimerStatusModel timerStatusModel = new TimerStatusModel(timerSettings);
         timerStatusModel.start();
 
-        when(timerProperties.getRestingTime())
+        when(timerSettings.getRestingTime())
                 .thenReturn(300000);
 
         mockMvc.perform(get("/workspace/endTimer")

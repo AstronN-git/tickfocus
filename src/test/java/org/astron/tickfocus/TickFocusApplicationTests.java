@@ -1,10 +1,8 @@
 package org.astron.tickfocus;
 
-import org.astron.tickfocus.configuration.TimerProperties;
 import org.astron.tickfocus.controller.AuthenticationController;
 import org.astron.tickfocus.controller.WorkspaceController;
 import org.astron.tickfocus.service.UserService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +16,6 @@ class TickFocusApplicationTests {
     WorkspaceController workspaceController;
 
     @Autowired
-    TimerProperties timerProperties;
-
-    @Autowired
     UserDetailsService userDetailsService;
 
     @Autowired
@@ -29,7 +24,6 @@ class TickFocusApplicationTests {
     @Test
     void contextLoads() {
         assertNotNull(workspaceController);
-        assertNotNull(timerProperties);
         assertNotNull(authenticationController);
         assertInstanceOf(UserService.class, userDetailsService);
     }

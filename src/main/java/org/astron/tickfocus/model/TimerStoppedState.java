@@ -1,14 +1,14 @@
 package org.astron.tickfocus.model;
 
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.TimerSettings;
 
 import java.time.LocalDateTime;
 
 class TimerStoppedState implements TimerState {
-    TimerProperties timerProperties;
+    TimerSettings timerSettings;
 
-    public TimerStoppedState(TimerProperties timerProperties) {
-        this.timerProperties = timerProperties;
+    public TimerStoppedState(TimerSettings timerSettings) {
+        this.timerSettings = timerSettings;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.astron.tickfocus.model;
 
-import org.astron.tickfocus.configuration.TimerProperties;
+import org.astron.tickfocus.configuration.TimerSettings;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,10 +8,10 @@ import java.time.temporal.ChronoUnit;
 
 class TimerWorkingState implements TimerState {
     LocalDateTime startDate;
-    TimerProperties timerProperties;
+    TimerSettings timerSettings;
 
-    public TimerWorkingState(TimerProperties timerProperties) {
-        this.timerProperties = timerProperties;
+    public TimerWorkingState(TimerSettings timerSettings) {
+        this.timerSettings = timerSettings;
     }
 
     @Override
@@ -26,7 +26,7 @@ class TimerWorkingState implements TimerState {
 
     @Override
     public LocalDateTime getEndDate() {
-        return startDate.plus(timerProperties.getWorkingTime(), ChronoUnit.MILLIS);
+        return startDate.plus(timerSettings.getWorkingTime(), ChronoUnit.MILLIS);
     }
 
     @Override
