@@ -1,9 +1,15 @@
+let endTimerFormSubmitted = false
+
 function updateProgress(progress) {
     const progressEpsHigh = .005;
 
     if (progress >= 1) {
         progress = 1;
-        document.forms["end-timer"].submit()
+
+        if (!endTimerFormSubmitted) {
+            document.forms["end-timer"].submit()
+            endTimerFormSubmitted = true
+        }
     }
 
     if (progress < 0) {

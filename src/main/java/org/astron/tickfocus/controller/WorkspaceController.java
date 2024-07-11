@@ -24,6 +24,7 @@ public class WorkspaceController {
     public String showHomeView(
             @ModelAttribute("timerStatus") TimerStatusModel timerStatusModel
     ) {
+        log.debug("/workspace endpoint");
         return "workspace";
     }
 
@@ -31,6 +32,7 @@ public class WorkspaceController {
     public String startTimer(
             @ModelAttribute("timerStatus") TimerStatusModel timerStatusModel
     ) {
+        log.debug("/workspace/startTimer endpoint");
         timerStatusModel.start();
         return "redirect:/workspace";
     }
@@ -39,6 +41,7 @@ public class WorkspaceController {
     public String stopTimer(
             @ModelAttribute("timerStatus") TimerStatusModel timerStatusModel
     ) {
+        log.debug("/workspace/stopTimer endpoint");
         timerStatusModel.stop();
         return "redirect:/workspace";
     }
@@ -47,6 +50,7 @@ public class WorkspaceController {
     public String endTimer(
             @ModelAttribute("timerStatus") TimerStatusModel timerStatusModel
     ) {
+        log.debug("/workspace/endTimer endpoint");
         timerStatusModel.timerEnd();
         return "redirect:/workspace";
     }
