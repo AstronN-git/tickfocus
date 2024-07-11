@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
@@ -46,7 +47,7 @@ public class WorkspaceControllerNonAuthenticatedTests {
 
     @Test
     void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
 
         when(timerProperties.getWorkingTime())
                 .thenReturn(1500000);
@@ -62,7 +63,7 @@ public class WorkspaceControllerNonAuthenticatedTests {
                         )),
                         hasProperty("text", is("Working...")),
                         hasProperty("primary", is(true)),
-                        hasProperty("endDate", greaterThan(LocalDateTime.now()))
+                        hasProperty("endDate", greaterThan(LocalDateTime.now(ZoneOffset.UTC)))
                 )));
     }
 
@@ -96,10 +97,10 @@ public class WorkspaceControllerNonAuthenticatedTests {
                 .andExpect(request().sessionAttribute("timerStatus", allOf(
                         hasProperty("running", is(true)),
                         hasProperty("timerState", is(timerStatusModel.getRestingState())),
-                        hasProperty("startDate", lessThanOrEqualTo(LocalDateTime.now())),
+                        hasProperty("startDate", lessThanOrEqualTo(LocalDateTime.now(ZoneOffset.UTC))),
                         hasProperty("text", is("Resting...")),
                         hasProperty("primary", is(false)),
-                        hasProperty("endDate", greaterThan(LocalDateTime.now()))
+                        hasProperty("endDate", greaterThan(LocalDateTime.now(ZoneOffset.UTC)))
                 )));
     }
 }

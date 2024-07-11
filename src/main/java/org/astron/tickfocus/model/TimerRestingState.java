@@ -3,6 +3,7 @@ package org.astron.tickfocus.model;
 import org.astron.tickfocus.configuration.TimerProperties;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
 class TimerRestingState implements TimerState {
@@ -40,7 +41,7 @@ class TimerRestingState implements TimerState {
 
     @Override
     public void stateChanged() {
-        startDate = LocalDateTime.now();
+        startDate = LocalDateTime.now(ZoneOffset.UTC);
     }
 
     @Override
