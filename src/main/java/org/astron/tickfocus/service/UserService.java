@@ -1,6 +1,5 @@
 package org.astron.tickfocus.service;
 
-import org.astron.tickfocus.entity.TimerState;
 import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
 import org.slf4j.Logger;
@@ -25,8 +24,6 @@ public class UserService implements UserDetailsService {
 
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        TimerState timerState = new TimerState();
-        user.setTimerState(timerState);
         log.info("User created: {}", user);
         return userRepository.save(user);
     }

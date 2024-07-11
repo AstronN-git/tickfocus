@@ -52,6 +52,16 @@
   display: none;
 }
 
+.progress-bar-tertiary .active-indicator {
+  background-color: #735572;
+}
+.progress-bar-tertiary .track-and-stop {
+  background-color: #FED7FA;
+}
+.progress-bar-tertiary .track-and-stop .track-stop {
+  background-color: #735572;
+}
+
 .time-left {
   margin-top: 8px;
   text-align: right;

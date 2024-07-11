@@ -33,7 +33,6 @@ public class UserServiceTests {
     @Test
     void testFindsUserByUsername() {
         User user = new User();
-        user.setId(1L);
         user.setUsername("user");
         user.setPassword("password");
 

@@ -157,10 +157,9 @@
 
         <div class="progress">
             <div class="progress-text headline-medium">
-                <span th:if="${timerState.isTimerStarted}">Working...</span>
-                <span th:if="${!timerState.isTimerStarted}">Resting...</span>
+                <span th:text="${timerStatus.text}">Resting...</span>
             </div>
-            <div class="progress-bar" id="slice-progress">
+            <div class="progress-bar" id="slice-progress" th:classappend="${timerStatus.primary ? '' : 'progress-bar-tertiary'}">
                 <div class="active-indicator active-indicator-none" id="slice-active"></div>
                 <div class="track-and-stop" id="slice-track">
                     <div class="track-stop" id="slice-track-stop"></div>
@@ -171,28 +170,30 @@
             </div>
             <div class="buttons-container body-medium">
                 <form th:action="@{workspace/startTimer}" id="start-timer"></form>
-                <button th:disabled="${timerState.isTimerStarted}" type="submit" form="start-timer">
+                <button th:disabled="${timerStatus.running}" type="submit" form="start-timer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" fill="none" viewBox="0 0 11 14">
                         <path fill="currentColor" d="M0 1.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 0 0 0-1.69L1.54.98A.998.998 0 0 0 0 1.82Z"/>
                     </svg>
                     <span>Start Session</span>
                 </button>
 
-                <form th:action="@{workspace/endTimer}" id="end-timer"></form>
-                <button th:disabled="${!timerState.isTimerStarted}" type="submit" form="end-timer">
+                <form th:action="@{workspace/stopTimer}" id="stop-timer"></form>
+                <button th:disabled="${!timerStatus.running}" type="submit" form="stop-timer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
                         <path fill="currentColor" d="M2 .5h6c.825 0 1.5.675 1.5 1.5v6c0 .825-.675 1.5-1.5 1.5H2C1.175 9.5.5 8.825.5 8V2C.5 1.175 1.175.5 2 .5Z"/>
                     </svg>
                     <span>End Session</span>
                 </button>
+
+                <form th:action="@{workspace/endTimer}" id="end-timer" style="display: none"></form>
             </div>
         </div>
     </div>
 
     <script th:inline="javascript">
-        const isTimerStarted = [[${timerState.isTimerStarted}]]
-        const timerStartDate = new Date([[${timerState.startDate}]])
-        const fullTimerDuration = [[${timerProperties.sessionTime}]]
+        const isTimerStarted = [[${timerStatus.running}]]
+        const timerStartDate = new Date([[${timerStatus.startDate}]])
+        const timerEndDate = new Date([[${timerStatus.endDate}]])
     </script>
     <script th:src="@{js/workspace.js}"></script>
     <script th:src="@{js/components/nav-drawer.js}"></script>

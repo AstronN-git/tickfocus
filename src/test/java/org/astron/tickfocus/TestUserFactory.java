@@ -8,7 +8,6 @@ public class TestUserFactory {
         testUser.setUsername("testUser");
         testUser.setPassword("123");
         testUser.setEmail("test@gmail.com");
-        testUser.setId(1L);
 
         return testUser;
     }

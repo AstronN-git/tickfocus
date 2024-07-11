@@ -2,8 +2,7 @@ package org.astron.tickfocus.controller;
 
 import org.astron.tickfocus.configuration.SecurityConfiguration;
 import org.astron.tickfocus.configuration.TimerProperties;
-import org.astron.tickfocus.model.TimerStateModel;
-import org.astron.tickfocus.repository.TimerStateRepository;
+import org.astron.tickfocus.model.TimerStatusModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,9 +26,6 @@ public class WorkspaceControllerNonAuthenticatedTests {
     @MockBean
     TimerProperties timerProperties;
 
-    @MockBean
-    TimerStateRepository timerStateRepository;
-
     @Test
     void testReturnsWorkspaceView() throws Exception {
         mockMvc.perform(get("/workspace"))
@@ -40,9 +37,9 @@ public class WorkspaceControllerNonAuthenticatedTests {
     void testModelContainsNeededAttributes() throws Exception {
         mockMvc.perform(get("/workspace"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("timerState"))
-                .andExpect(request().sessionAttribute("timerState", allOf(
-                        hasProperty("isTimerStarted", is(false)),
+                .andExpect(model().attributeExists("timerStatus"))
+                .andExpect(request().sessionAttribute("timerStatus", allOf(
+                        hasProperty("running", is(false)),
                         hasProperty("startDate", nullValue())
                 )));
     }
@@ -51,40 +48,58 @@ public class WorkspaceControllerNonAuthenticatedTests {
     void testTimerIsStartedWhenVisitingTimerStart() throws Exception {
         LocalDateTime localDateTime = LocalDateTime.now();
 
+        when(timerProperties.getWorkingTime())
+                .thenReturn(1500000);
+
         mockMvc.perform(get("/workspace/startTimer"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState", allOf(
-                        hasProperty("isTimerStarted", is(true)),
+                .andExpect(request().sessionAttribute("timerStatus", allOf(
+                        hasProperty("running", is(true)),
                         hasProperty("startDate", allOf(
                                 notNullValue(),
                                 greaterThanOrEqualTo(localDateTime)
-                        ))
+                        )),
+                        hasProperty("text", is("Working...")),
+                        hasProperty("primary", is(true)),
+                        hasProperty("endDate", greaterThan(LocalDateTime.now()))
                 )));
     }
 
     @Test
     void testTimerIsStoppedWhenVisitingTimerStop() throws Exception {
-        TimerStateModel timerStateModel = new TimerStateModel();
-        timerStateModel.setIsTimerStarted(true);
-        timerStateModel.setStartDate(LocalDateTime.now());
+        TimerStatusModel timerStatusModel = new TimerStatusModel(timerProperties);
+        timerStatusModel.start();
 
-        mockMvc.perform(get("/workspace/endTimer")
-                .sessionAttr("timerState", timerStateModel))
+        mockMvc.perform(get("/workspace/stopTimer")
+                .sessionAttr("timerStatus", timerStatusModel))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/workspace"))
-                .andExpect(request().sessionAttribute("timerState", allOf(
-                        hasProperty("isTimerStarted", is(false)),
+                .andExpect(request().sessionAttribute("timerStatus", allOf(
+                        hasProperty("running", is(false)),
                         hasProperty("startDate", nullValue())
                 )));
     }
 
     @Test
-    void testTimerPropertiesIsInModel() throws Exception {
-        mockMvc.perform(get("/workspace"))
-                .andExpect(status().isOk())
-                .andExpect(model().attribute(
-                        "timerProperties", allOf(notNullValue(), is(timerProperties))
-                ));
+    void testTimerIsSwitchedToRestingWhenVisitingTimerEnd() throws Exception {
+        TimerStatusModel timerStatusModel = new TimerStatusModel(timerProperties);
+        timerStatusModel.start();
+
+        when(timerProperties.getRestingTime())
+                .thenReturn(300000);
+
+        mockMvc.perform(get("/workspace/endTimer")
+                .sessionAttr("timerStatus", timerStatusModel))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/workspace"))
+                .andExpect(request().sessionAttribute("timerStatus", allOf(
+                        hasProperty("running", is(true)),
+                        hasProperty("timerState", is(timerStatusModel.getRestingState())),
+                        hasProperty("startDate", lessThanOrEqualTo(LocalDateTime.now())),
+                        hasProperty("text", is("Resting...")),
+                        hasProperty("primary", is(false)),
+                        hasProperty("endDate", greaterThan(LocalDateTime.now()))
+                )));
     }
 }

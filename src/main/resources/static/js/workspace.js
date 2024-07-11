@@ -60,8 +60,9 @@ setInterval(() => {
     let dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
         date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
     let diff = dateUTC - timerStartDate
+    let fullTimerDuration = timerEndDate - timerStartDate
 
     let percentage = diff / fullTimerDuration
     updateProgress(percentage)
     updateTimeLeft(fullTimerDuration - diff)
-}, 100)
+}, 10)

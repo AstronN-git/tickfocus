@@ -8,5 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "timer")
 public class TimerProperties {
-    private int sessionTime = 120000;
+    private int workingTime = 1500000; // 25 minutes
+    private int restingTime = 300000; // 5 minutes
 }

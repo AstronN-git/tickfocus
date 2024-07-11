@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +24,7 @@ import java.util.Objects;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(unique = true)
@@ -45,9 +43,6 @@ public class User implements UserDetails {
     @Length(max = 255, message = "Password is too long.")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private TimerState timerState;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("USER"));
@@ -61,16 +56,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public void setTimerState(TimerState timerState) {
-        if (timerState == null)
-            throw new NullPointerException("timerState is null");
-        if (timerState.getUser() != null)
-            throw new IllegalStateException("timerState already has assigned user");
-
-        timerState.setUser(this);
-        this.timerState = timerState;
     }
 
     @Override

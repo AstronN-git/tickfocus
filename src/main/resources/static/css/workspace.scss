@@ -60,6 +60,20 @@
   }
 }
 
+.progress-bar-tertiary {
+  .active-indicator {
+    background-color: $tertiary;
+  }
+
+  .track-and-stop {
+    background-color: $tertiary-container;
+
+    .track-stop {
+      background-color: $tertiary;
+    }
+  }
+}
+
 .time-left {
   margin-top: 8px;
   text-align: right;
