@@ -1,48 +1,23 @@
 let endTimerFormSubmitted = false
 
-function updateProgress(progress) {
-    const progressEpsHigh = .005;
+function createProgressBar(id, duration, startingTime) {
+    const active = document.getElementById(id + "-active")
+    const track = document.getElementById(id + "-track")
+    const trackStop = document.getElementById(id + "-track-stop")
 
-    if (progress >= 1) {
-        progress = 1;
+    active.style.animationDuration = duration;
+    track.style.animationDuration = duration;
+    trackStop.style.animationDuration = duration;
 
-        if (!endTimerFormSubmitted) {
-            document.forms["end-timer"].submit()
-            endTimerFormSubmitted = true
-        }
+    if (typeof startingTime == 'string') {
+        active.style.animationDelay = '-' + startingTime;
+        track.style.animationDelay = '-' + startingTime;
+        trackStop.style.animationDelay = '-' + startingTime;
     }
 
-    if (progress < 0) {
-        progress = 0;
-    }
-
-    const sliceActive = document.getElementById("slice-active")
-    const sliceTrack = document.getElementById("slice-track")
-
-    if (progress + progressEpsHigh >= 1) {
-        sliceActive.classList.remove('active-indicator-none')
-        sliceActive.classList.add('active-indicator-done')
-        sliceTrack.classList.add('track-and-stop-done')
-
-        sliceActive.style.width = '100%'
-
-        return
-    }
-
-    if (progress <= 0) {
-        sliceActive.classList.remove('active-indicator')
-        sliceActive.classList.add('active-indicator-none')
-
-        sliceTrack.style.width = '100%'
-
-        return
-    }
-
-    sliceActive.classList.remove('active-indicator-none')
-    sliceActive.classList.add('active-indicator')
-
-    sliceActive.style.width = (progress * 100) + '%'
-    sliceTrack.style.width = (1 - progress) * 100 + '%'
+    active.style.animationPlayState = 'running'
+    track.style.animationPlayState = 'running'
+    trackStop.style.animationPlayState = 'running'
 }
 
 function updateTimeLeft(ms) {
@@ -68,7 +43,24 @@ setInterval(() => {
     let diff = dateUTC - timerStartDate
     let fullTimerDuration = timerEndDate - timerStartDate
 
-    let percentage = diff / fullTimerDuration
-    updateProgress(percentage)
+    if (dateUTC > timerEndDate) {
+        if (!endTimerFormSubmitted) {
+            document.forms["end-timer"].submit()
+            endTimerFormSubmitted = true
+        }
+    }
+
     updateTimeLeft(fullTimerDuration - diff)
-}, 10)
+}, 100)
+
+if (isTimerStarted) {
+    let fullTimerDuration = timerEndDate - timerStartDate
+    let date = new Date()
+    let dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
+    let diff = dateUTC - timerStartDate
+
+    document.getElementById("slice-active").classList.remove('active-indicator-none')
+
+    createProgressBar("slice", fullTimerDuration + 'ms', diff + 'ms')
+}

@@ -23,12 +23,36 @@
   height: 18px;
   display: flex;
   align-items: center;
+  position: relative;
 
   .active-indicator {
     height: 4px;
     background-color: $primary;
     border-radius: 4px;
     margin-right: 4px;
+
+    animation: progressbar-active;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    animation-timing-function: linear;
+
+    //position: absolute;
+  }
+  
+  @keyframes progressbar-active {
+    0% {
+      width: 0;
+    }
+
+    99% {
+      margin-right: 4px;
+    }
+    100% {
+      margin-right: 0;
+      width: 100%;
+    }
   }
 
   .active-indicator-none {
@@ -39,24 +63,39 @@
     margin-right: 0;
   }
 
-  .track-and-stop {
+  .track {
     height: 4px;
     background-color: $primary-container;
     border-radius: 2px;
     width: 100%;
 
-    .track-stop {
-      height: 100%;
-      width: 4px;
-      background-color: $primary;
-      margin-right: 0;
-      margin-left: auto;
-      border-radius: 100%;
-    }
+    animation: progressbar-track;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    animation-timing-function: linear;
   }
 
-  .track-and-stop-done {
-    display: none;
+  .track-stop {
+    width: 4px;
+    height: 4px;
+
+    background-color: $primary;
+    right: 0;
+    border-radius: 100%;
+
+    position: absolute;
+  }
+
+  @keyframes progressbar-track {
+    0% {
+      width: 100%;
+    }
+
+    100% {
+      width: 0;
+    }
   }
 }
 
@@ -65,7 +104,7 @@
     background-color: $tertiary;
   }
 
-  .track-and-stop {
+  .track {
     background-color: $tertiary-container;
 
     .track-stop {

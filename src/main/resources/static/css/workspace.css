@@ -21,12 +21,31 @@
   height: 18px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .progress-bar .active-indicator {
   height: 4px;
   background-color: #485D92;
   border-radius: 4px;
   margin-right: 4px;
+  animation: progressbar-active;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+}
+@keyframes progressbar-active {
+  0% {
+    width: 0;
+  }
+  99% {
+    margin-right: 4px;
+  }
+  100% {
+    margin-right: 0;
+    width: 100%;
+  }
 }
 .progress-bar .active-indicator-none {
   display: none;
@@ -34,31 +53,42 @@
 .progress-bar .active-indicator-done {
   margin-right: 0;
 }
-.progress-bar .track-and-stop {
+.progress-bar .track {
   height: 4px;
   background-color: #DAE2FF;
   border-radius: 2px;
   width: 100%;
+  animation: progressbar-track;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  animation-timing-function: linear;
 }
-.progress-bar .track-and-stop .track-stop {
-  height: 100%;
+.progress-bar .track-stop {
   width: 4px;
+  height: 4px;
   background-color: #485D92;
-  margin-right: 0;
-  margin-left: auto;
+  right: 0;
   border-radius: 100%;
+  position: absolute;
 }
-.progress-bar .track-and-stop-done {
-  display: none;
+@keyframes progressbar-track {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
 }
 
 .progress-bar-tertiary .active-indicator {
   background-color: #735572;
 }
-.progress-bar-tertiary .track-and-stop {
+.progress-bar-tertiary .track {
   background-color: #FED7FA;
 }
-.progress-bar-tertiary .track-and-stop .track-stop {
+.progress-bar-tertiary .track .track-stop {
   background-color: #735572;
 }
 
