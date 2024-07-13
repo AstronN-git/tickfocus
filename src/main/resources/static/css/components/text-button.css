@@ -1,0 +1,16 @@
+.text-button {
+  padding: 10px 12px;
+  background: none;
+  color: #485D92;
+  border-radius: 20px;
+}
+@media screen and (hover: hover) {
+  .text-button:hover {
+    background-color: rgba(72, 93, 146, 0.08);
+  }
+}
+.text-button:active {
+  background-color: rgba(72, 93, 146, 0.12);
+}
+
+/*# sourceMappingURL=text-button.css.map */

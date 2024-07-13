@@ -1,0 +1,40 @@
+@import '../colors';
+
+.modal-window {
+  margin: auto;
+  background-color: $surface-container-low;
+  border-radius: 28px;
+
+  min-height: auto;
+  width: 312px;
+
+  .modal-text-content {
+    padding: 24px 24px 0;
+
+    >* {
+      margin-bottom: 16px;
+    }
+
+    >*:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .modal-actions {
+    padding: 24px;
+    margin-left: auto;
+    * {
+      outline: none;
+    }
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: right;
+  }
+}
+
+dialog::backdrop {
+  background-color: #000;
+  opacity: .35;
+}

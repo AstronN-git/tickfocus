@@ -1,0 +1,18 @@
+@import "../colors";
+
+.text-button {
+  padding: 10px 12px;
+  background: none;
+  color: $primary;
+  border-radius: 20px;
+
+  @media screen and (hover: hover) {
+    &:hover {
+      background-color: rgba($primary, 0.08);
+    }
+  }
+
+  &:active {
+    background-color: rgba($primary, 0.12);
+  }
+}

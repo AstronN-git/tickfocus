@@ -1,0 +1,34 @@
+.modal-window {
+  margin: auto;
+  background-color: #F4F3FA;
+  border-radius: 28px;
+  min-height: auto;
+  width: 312px;
+}
+.modal-window .modal-text-content {
+  padding: 24px 24px 0;
+}
+.modal-window .modal-text-content > * {
+  margin-bottom: 16px;
+}
+.modal-window .modal-text-content > *:last-child {
+  margin-bottom: 0;
+}
+.modal-window .modal-actions {
+  padding: 24px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: right;
+}
+.modal-window .modal-actions * {
+  outline: none;
+}
+
+dialog::backdrop {
+  background-color: #000;
+  opacity: 0.35;
+}
+
+/*# sourceMappingURL=modal-window.css.map */

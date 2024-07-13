@@ -80,26 +80,4 @@
   position: absolute;
 }
 
-.navigation-button {
-  position: absolute;
-  background: none;
-  border-radius: 100%;
-  width: 48px;
-  height: 48px;
-  color: #1A1B21;
-}
-.navigation-button svg {
-  width: 32px;
-  height: 32px;
-  margin: auto;
-}
-@media (hover: hover) {
-  .navigation-button:hover {
-    background-color: rgba(26, 27, 33, 0.08);
-  }
-}
-.navigation-button:active {
-  background-color: rgba(26, 27, 33, 0.12);
-}
-
 /*# sourceMappingURL=nav-drawer.css.map */

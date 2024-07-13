@@ -64,3 +64,7 @@ if (isTimerStarted) {
 
     createProgressBar("slice", fullTimerDuration + 'ms', diff + 'ms')
 }
+
+document.getElementById("open-settings").addEventListener('click', (event) => {
+    document.getElementById("settings").showModal();
+})

@@ -1,6 +1,11 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .work-area {
   padding: 60px 25%;
-  height: 100svh;
+  height: 100%;
 }
 
 .tasks {
