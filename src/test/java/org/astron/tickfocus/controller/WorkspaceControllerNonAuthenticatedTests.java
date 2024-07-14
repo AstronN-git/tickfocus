@@ -4,6 +4,7 @@ import org.astron.tickfocus.configuration.DefaultTimerSettings;
 import org.astron.tickfocus.configuration.SecurityConfiguration;
 import org.astron.tickfocus.configuration.TimerSettings;
 import org.astron.tickfocus.model.TimerStatusModel;
+import org.astron.tickfocus.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,6 +28,9 @@ public class WorkspaceControllerNonAuthenticatedTests {
 
     @MockBean(DefaultTimerSettings.class)
     TimerSettings timerSettings;
+
+    @MockBean
+    UserService userService;
 
     @Test
     void testReturnsWorkspaceView() throws Exception {

@@ -1,6 +1,7 @@
 package org.astron.tickfocus.service;
 
 import org.astron.tickfocus.configuration.DefaultTimerSettings;
+import org.astron.tickfocus.configuration.TimerSettings;
 import org.astron.tickfocus.entity.DatabaseTimerSettings;
 import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
@@ -36,6 +37,21 @@ public class UserService implements UserDetailsService {
         user.setTimerSettings(timerSettings);
         log.info("User created: {}", user);
         return userRepository.save(user);
+    }
+
+    public TimerSettings findTimerSettingsByUser(User user) {
+        return userRepository.findById(user.getId()).orElseThrow().getTimerSettings();
+    }
+
+    public void updateTimerSettings(User user, TimerSettings timerSettings) {
+        log.info("updating timer settings: {}", timerSettings);
+
+        DatabaseTimerSettings databaseTimerSettings = new DatabaseTimerSettings();
+
+        databaseTimerSettings.setWorkingTime(timerSettings.getWorkingTime());
+        databaseTimerSettings.setRestingTime(timerSettings.getRestingTime());
+
+        userRepository.updateTimerSettings(user.getId(), databaseTimerSettings);
     }
 
     public void validateUniqueFields(User user, Errors errors) {

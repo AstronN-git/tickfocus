@@ -16,7 +16,7 @@ import org.thymeleaf.spring6.ISpringTemplateEngine;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 @WebMvcTest
-@MockBeans({@MockBean(UserService.class), @MockBean(TimerSettings.class)})
+@MockBeans({@MockBean(UserService.class), @MockBean(TimerSettings.class), @MockBean(UserService.class)})
 @Import(SecurityConfiguration.class)
 public class WorkspaceControllerAuthenticatedTests {
     private MockMvc mockMvc;
@@ -24,6 +24,8 @@ public class WorkspaceControllerAuthenticatedTests {
     private DefaultTimerSettings timerSettings;
     @Autowired
     private ISpringTemplateEngine templateEngine;
+    @Autowired
+    private UserService userService;
 
     @BeforeEach
     void setUpMockMvc() {
@@ -31,7 +33,7 @@ public class WorkspaceControllerAuthenticatedTests {
         viewResolver.setTemplateEngine(templateEngine);
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new WorkspaceController(timerSettings))
+                .standaloneSetup(new WorkspaceController(timerSettings, userService))
                 .setCustomArgumentResolvers(new AuthenticationArgumentResolver())
                 .setViewResolvers(viewResolver)
                 .build();

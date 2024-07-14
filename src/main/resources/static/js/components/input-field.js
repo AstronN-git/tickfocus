@@ -7,8 +7,12 @@ function setInputActive(inputName) {
     input.focus();
 }
 
-let inputs = document.getElementsByTagName('input')
+let inputs = document.querySelectorAll(".input-field>input")
 for (let input of inputs) {
+    if (input.value !== '') {
+        setInputActive(input.id)
+    }
+
     input.addEventListener('focusin', (event) => {
         let id = event.target.id
         let placeholder = document.getElementById(id + '-placeholder')

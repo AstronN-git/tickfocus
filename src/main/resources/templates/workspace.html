@@ -14,6 +14,7 @@
     <link rel="stylesheet" th:href="@{css/components/icon-button.css}">
     <link rel="stylesheet" th:href="@{css/components/modal-window.css}">
     <link rel="stylesheet" th:href="@{css/components/text-button.css}">
+    <link rel="stylesheet" th:href="@{css/components/input-field.css}">
 </head>
 <body>
     <div class="navigation-drawer" id="navigation-drawer">
@@ -174,13 +175,41 @@
                 To edit and save settings you should be authorized.
                 Settings are synchronized while you are using the same account.
             </div>
+            <div sec:authorize="authenticated" class="body-medium">
+                You can set working and resting time (in seconds).
+                If you apply settings while timer is running it would be stopped.
+            </div>
+            <div sec:authorize="authenticated">
+                <form th:action="@{/workspace/settings}" method="post" th:object="${timerSettings}" id="settings-form">
+                    <div class="input-field" onclick="setInputActive('working-time')" id="working-time-field">
+                        <input class="body-large" type="number" th:field="*{workingTime}" id="working-time">
+                        <div class="input-placeholder body-large" id="working-time-placeholder">
+                            Working Time
+                        </div>
+                    </div>
+
+                    <div class="input-field" onclick="setInputActive('resting-time')" id="resting-time-field">
+                        <input class="body-large" type="number" th:field="*{restingTime}" id="resting-time">
+                        <div class="input-placeholder body-large" id="resting-time-placeholder">
+                            Resting Time
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-actions">
+        <div class="modal-actions" sec:authorize="anonymous">
             <form method="dialog">
                 <button class="text-button body-medium-500">Discard</button>
             </form>
 
             <a th:href="@{/login}" class="text-button body-medium-500">Sign In</a>
+        </div>
+        <div class="modal-actions" sec:authorize="authenticated">
+            <form method="dialog">
+                <button class="text-button body-medium-500">Discard</button>
+            </form>
+
+            <button class="text-button body-medium-500" form="settings-form">Apply</button>
         </div>
     </dialog>
 
@@ -231,5 +260,6 @@
     </script>
     <script th:src="@{js/workspace.js}"></script>
     <script th:src="@{js/components/nav-drawer.js}"></script>
+    <script th:src="@{js/components/input-field.js}"></script>
 </body>
 </html>

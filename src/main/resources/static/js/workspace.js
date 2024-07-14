@@ -68,3 +68,7 @@ if (isTimerStarted) {
 document.getElementById("open-settings").addEventListener('click', (event) => {
     document.getElementById("settings").showModal();
 })
+
+function settingsErr() {
+    document.getElementById("settings").showModal();
+}

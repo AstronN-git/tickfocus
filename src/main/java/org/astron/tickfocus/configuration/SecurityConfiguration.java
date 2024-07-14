@@ -41,6 +41,9 @@ public class SecurityConfiguration {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
+                )
+                .sessionManagement((session) -> session
+                        .sessionFixation().newSession()
                 );
 
         return http.build();

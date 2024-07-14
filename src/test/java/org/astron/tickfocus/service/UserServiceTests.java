@@ -1,5 +1,6 @@
 package org.astron.tickfocus.service;
 
+import org.astron.tickfocus.configuration.DefaultTimerSettings;
 import org.astron.tickfocus.entity.User;
 import org.astron.tickfocus.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,9 @@ public class UserServiceTests {
 
     @Mock
     PasswordEncoder passwordEncoder;
+
+    @Mock
+    DefaultTimerSettings defaultTimerSettings;
 
     @InjectMocks
     UserService userService;
