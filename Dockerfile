@@ -1,5 +1,13 @@
+FROM gradle:jdk17 AS cache
+RUN mkdir -p /home/gradle/cache_home
+ENV GRADLE_USER_HOME /home/gradle/cache_home
+COPY build.gradle /home/gradle/java-code/
+WORKDIR /home/gradle/java-code
+RUN gradle clean build
+
 FROM gradle:jdk17 AS build
 LABEL authors="maximscherbakov"
+COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
 WORKDIR /app
 COPY . .
 RUN gradle bootJar
