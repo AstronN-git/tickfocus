@@ -16,6 +16,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Slf4j
 @Controller
 @RequestMapping("/workspace")
@@ -116,6 +119,11 @@ public class WorkspaceController {
     @ModelAttribute("timerSettings")
     public SimpleTimerSettings timerSettings() {
         return new SimpleTimerSettings();
+    }
+
+    @ModelAttribute("serverTime")
+    public LocalDateTime serverTime() {
+        return LocalDateTime.now(ZoneOffset.UTC);
     }
 
     private TimerSettings getMillisTimerSettings(TimerSettings secondsTimerSettings) {

@@ -33,32 +33,34 @@ function updateTimeLeft(ms) {
     }
 }
 
+function getDateUTC() {
+    let date = new Date();
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
+}
+
+let timeDifferenceWithServer = getDateUTC() - serverTime
+
 setInterval(() => {
     if (!isTimerStarted)
         return
 
-    let date = new Date()
-    let dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
-    let diff = dateUTC - timerStartDate
+    let serverTime = getDateUTC() - timeDifferenceWithServer
+    let diff = serverTime - timerStartDate
     let fullTimerDuration = timerEndDate - timerStartDate
 
-    if (dateUTC > timerEndDate) {
-        if (!endTimerFormSubmitted) {
-            document.forms["end-timer"].submit()
-            endTimerFormSubmitted = true
-        }
+    if (serverTime > timerEndDate && !endTimerFormSubmitted) {
+        endTimerFormSubmitted = true
+        document.forms["end-timer"].submit()
     }
 
     updateTimeLeft(fullTimerDuration - diff)
 }, 100)
 
 if (isTimerStarted) {
+    let serverTime = getDateUTC() - timeDifferenceWithServer
+    let diff = serverTime - timerStartDate
     let fullTimerDuration = timerEndDate - timerStartDate
-    let date = new Date()
-    let dateUTC = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
-        date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds())
-    let diff = dateUTC - timerStartDate
 
     document.getElementById("slice-active").classList.remove('active-indicator-none')
 
